@@ -1,9 +1,7 @@
 clear;
 
-pkg load image;
-
 IMG = imread("Sample_Images/IMG.png");
-IMG_MASK = im2bw(IMG,0.1);
+IMG_MASK = imbinarize(IMG);
 
 [CENTERS,RADII] = imfindcircles(IMG_MASK,[15 50],'Sensitivity',0.9);
 
@@ -32,9 +30,6 @@ fprintf("%d nucleii found.\n",len);
 DATA = zeros(10,length(NUCLEII));
 LENGTHS = zeros(2,length(NUCLEII));
 
-figure; hold on;
-
-imshow(IMG_MASK);
 for i = 1:length(NUCLEII)
 	x1 = NUCLEII(i,1);
 	y1 = NUCLEII(i,2);
@@ -50,7 +45,6 @@ for i = 1:length(NUCLEII)
 				pixel = IMG_MASK(round(y2),round(x2));
 				x2 = x2 + round(cos(angle));
 				y2 = y2 + round(sin(angle));
-                		plot(x2,y2,'.');
 			catch
 				break;
 			end
@@ -62,9 +56,6 @@ for i = 1:length(NUCLEII)
 	LENGTHS(1,i) = DATA(3,i) - DATA(7,i);
 	LENGTHS(2,i) = DATA(6,i) - DATA(10,i);
 end
-
-hold off;
-close all;
 
 disp(LENGTHS(1,:)./LENGTHS(2,:));
 
