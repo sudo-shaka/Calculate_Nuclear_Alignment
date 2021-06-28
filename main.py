@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import cv2
 import argparse
 import math
@@ -22,10 +24,10 @@ def main():
     keypoints = detector.detect(image)
     pts = np.asarray([[p.pt[0],p.pt[1]] for p in keypoints])
 
-    NUCELII = pts
+    Nucleii = pts
     Alignments = []
 
-    for n in NUCELII:
+    for n in Nucleii:
         x1 = int(n[0])
         y1 = int(n[1])
         angles = [0,math.pi/2,math.pi,math.pi*3/2]
